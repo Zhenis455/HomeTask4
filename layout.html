@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle} ?: 'askIt CRM'">askIt CRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/requests">askIt CRM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample" aria-controls="navbarsExample" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExample">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" th:classappend="${activeTab}=='all' ? 'active'" href="/requests">All Requests</a></li>
+        <li class="nav-item"><a class="nav-link" th:classappend="${activeTab}=='pending' ? 'active'" href="/requests/pending">Pending Requests</a></li>
+        <li class="nav-item"><a class="nav-link" th:classappend="${activeTab}=='processed' ? 'active'" href="/requests/processed">Processed Requests</a></li>
+      </ul>
+      <a href="/requests/add" class="btn btn-success">Add Request</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container my-4" layout:fragment="content">
+    <!-- page content -->
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

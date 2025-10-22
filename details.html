@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Request Details</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div th:if="${req == null}" class="alert alert-danger">Request not found.</div>
+    <div th:if="${req != null}" class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title mb-3">Request #<span th:text="${req.id}">1</span></h3>
+            <dl class="row">
+                <dt class="col-sm-3">User</dt><dd class="col-sm-9" th:text="${req.userName}">John</dd>
+                <dt class="col-sm-3">Course</dt><dd class="col-sm-9" th:text="${req.courseName}">Java</dd>
+                <dt class="col-sm-3">Phone</dt><dd class="col-sm-9" th:text="${req.phone}">+7...</dd>
+                <dt class="col-sm-3">Commentary</dt><dd class="col-sm-9" th:text="${req.commentary}">---</dd>
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">
+                    <span th:text="${req.handled} ? 'Processed' : 'Pending'"
+                          th:classappend="${req.handled} ? 'badge bg-success' : 'badge bg-warning text-dark'">Pending</span>
+                </dd>
+            </dl>
+            <div class="d-flex gap-2">
+                <form th:action="@{'/requests/' + ${req.id} + '/process'}" method="post" th:if="${!req.handled}">
+                    <input type="hidden" name="handled" value="true"/>
+                    <button class="btn btn-success" type="submit">Process Request</button>
+                </form>
+                <form th:action="@{'/requests/' + ${req.id} + '/process'}" method="post" th:if="${req.handled}">
+                    <input type="hidden" name="handled" value="false"/>
+                    <button class="btn btn-secondary" type="submit">Mark Pending</button>
+                </form>
+                <form th:action="@{'/requests/' + ${req.id} + '/delete'}" method="post" onsubmit="return confirm('Delete this request?');">
+                    <button class="btn btn-danger" type="submit">Delete Application</button>
+                </form>
+                <a href="/requests" class="btn btn-outline-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
